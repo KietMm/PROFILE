@@ -10,16 +10,19 @@ const Home = () => {
       {/* Hero Section */}
       <Box 
         sx={{
-          pt: { xs: 10, md: 16 },
-          pb: { xs: 8, md: 12 },
+          pt: { xs: 8, sm: 10, md: 16 },
+          pb: { xs: 6, sm: 8, md: 12 },
           backgroundColor: 'rgba(25, 118, 210, 0.04)',
-          borderRadius: '0 0 0 100px',
+          borderRadius: { xs: '0 0 0 50px', md: '0 0 0 100px' },
           position: 'relative',
         }}
       >
         <Container maxWidth="lg">
           <Grid container spacing={4} alignItems="center">
-            <Grid item xs={12} md={6} sx={{ zIndex: 1 }}>
+            <Grid item xs={12} md={6} sx={{ 
+              textAlign: { xs: 'center', md: 'left' },
+              order: { xs: 2, md: 1 }
+            }}>
               <Box sx={{ mb: 4 }}>
                 <Chip 
                   label="UI/UX Designer" 
@@ -34,7 +37,7 @@ const Home = () => {
                   lineHeight={1.2}
                   mb={2}
                   sx={{ 
-                    fontSize: { xs: '2.5rem', md: '3.5rem' },
+                    fontSize: { xs: '2rem', sm: '2.5rem', md: '3.5rem' },
                     background: 'linear-gradient(90deg, #1976d2 0%, #9c27b0 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -127,7 +130,11 @@ const Home = () => {
               </Box>
             </Grid>
             
-            <Grid item xs={12} md={6} sx={{ position: 'relative' }}>
+            <Grid item xs={12} md={6} sx={{ 
+              position: 'relative',
+              order: { xs: 1, md: 2 },
+              mb: { xs: 4, md: 0 }
+            }}>
               <Box 
                 sx={{ 
                   position: 'relative', 

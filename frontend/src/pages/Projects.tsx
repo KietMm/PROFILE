@@ -135,7 +135,7 @@ const Projects = () => {
           </Tabs>
         </Box>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
           {filteredProjects.map((project, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <motion.div
@@ -147,7 +147,7 @@ const Projects = () => {
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
-                    borderRadius: 3,
+                    borderRadius: { xs: 2, sm: 3 },
                     overflow: 'hidden',
                     boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
                   }}
@@ -159,19 +159,31 @@ const Projects = () => {
                     alt={project.title}
                     sx={{
                       transition: '0.3s',
+                      height: {
+                        xs: '180px',
+                        sm: '200px'
+                      },
                       '&:hover': {
                         transform: 'scale(1.05)'
                       }
                     }}
                   />
-                  <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                  <CardContent sx={{ 
+                    flexGrow: 1, 
+                    p: { xs: 2, sm: 3 }
+                  }}>
                     <Typography variant="h6" fontWeight="bold" gutterBottom>
                       {project.title}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                       {project.description}
                     </Typography>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
+                    <Box sx={{ 
+                      display: 'flex', 
+                      gap: { xs: 0.5, sm: 1 }, 
+                      flexWrap: 'wrap', 
+                      mb: 2 
+                    }}>
                       {project.tags.map((tag, i) => (
                         <Chip
                           key={i}

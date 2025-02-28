@@ -9,17 +9,23 @@ const Footer = () => {
     <Box 
       component="footer" 
       sx={{ 
-        py: 6, 
+        py: { xs: 4, md: 6 }, 
         bgcolor: 'background.paper',
         borderTop: '1px solid',
         borderColor: 'divider',
-        mt: 8
+        mt: { xs: 6, md: 8 }
       }}
     >
       <Container maxWidth="lg">
-        <Grid container spacing={4}>
+        <Grid container spacing={{ xs: 3, md: 4 }}>
           <Grid item xs={12} md={4}>
-            <Typography variant="h6" color="primary" fontWeight={700} gutterBottom>
+            <Typography 
+              variant="h6" 
+              color="primary" 
+              fontWeight={700} 
+              gutterBottom
+              sx={{ fontSize: { xs: '1.1rem', sm: '1.25rem' } }}
+            >
               <span style={{ color: '#1976d2' }}>Port</span><span style={{ color: '#9c27b0' }}>folio</span>
             </Typography>
             <Typography variant="body2" color="text.secondary" pb={2}>
@@ -44,7 +50,7 @@ const Footer = () => {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} sm={6} md={2}>
             <Typography variant="subtitle1" color="text.primary" fontWeight={600} gutterBottom>
               Navigation
             </Typography>
@@ -62,7 +68,7 @@ const Footer = () => {
             </Link>
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid item xs={6} sm={6} md={3}>
             <Typography variant="subtitle1" color="text.primary" fontWeight={600} gutterBottom>
               Services
             </Typography>
@@ -72,7 +78,7 @@ const Footer = () => {
             <Typography variant="body2" color="text.secondary" paragraph>Brand Strategy</Typography>
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} sm={6} md={3}>
             <Typography variant="subtitle1" color="text.primary" fontWeight={600} gutterBottom>
               Contact
             </Typography>
@@ -82,9 +88,14 @@ const Footer = () => {
           </Grid>
         </Grid>
         
-        <Divider sx={{ my: 4 }} />
+        <Divider sx={{ my: { xs: 3, md: 4 } }} />
         
-        <Typography variant="body2" color="text.secondary" align="center">
+        <Typography 
+          variant="body2" 
+          color="text.secondary" 
+          align="center"
+          sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}
+        >
           © {new Date().getFullYear()} Portfolio. All rights reserved.
         </Typography>
       </Container>
