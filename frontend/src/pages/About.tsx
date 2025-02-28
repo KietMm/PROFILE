@@ -1,7 +1,7 @@
-import React from 'react';
-import { Container, Typography, Grid, Avatar, Card, CardContent, Divider, Paper, List, ListItem, Box } from '@mui/material';
+// import React from 'react';
+import { Container, Typography, Grid, Avatar, Paper, List, ListItem, Box } from '@mui/material';
 import { motion } from 'framer-motion';
-import { Code, Brush, School, EmojiEvents } from '@mui/icons-material';
+import { Code, School, EmojiEvents } from '@mui/icons-material';
 
 const About = () => {
   return (

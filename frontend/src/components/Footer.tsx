@@ -76,9 +76,9 @@ const Footer = () => {
             <Typography variant="subtitle1" color="text.primary" fontWeight={600} gutterBottom>
               Contact
             </Typography>
-            <Typography variant="body2" color="text.secondary" paragraph>myemail@example.com</Typography>
-            <Typography variant="body2" color="text.secondary" paragraph>+1 (123) 456-7890</Typography>
-            <Typography variant="body2" color="text.secondary" paragraph>San Francisco, CA</Typography>
+            <Typography variant="body2" color="text.secondary" paragraph>chauvukietcma123@gmail.com</Typography>
+            <Typography variant="body2" color="text.secondary" paragraph>0837541890</Typography>
+            <Typography variant="body2" color="text.secondary" paragraph>Go Vap District, Ho Chi Minh City</Typography>
           </Grid>
         </Grid>
         

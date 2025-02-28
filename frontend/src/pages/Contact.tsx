@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { motion } from 'framer-motion';
 import { Container, Typography, Box, Button, IconButton, Paper, Grid } from '@mui/material';
 import { Facebook, Twitter, LinkedIn, Email, Phone, LocationOn, GitHub, Instagram } from '@mui/icons-material';
@@ -76,8 +76,11 @@ const Contact = () => {
                 {[
                   { icon: <GitHub />, color: '#333', link: 'https://github.com/KietMm' },
                   { icon: <LinkedIn />, color: '#0077B5', link: 'https://www.linkedin.com/in/chauvukietmm11' },
+                  { icon: <Facebook />, color: '#1877F2', link: 'https://www.facebook.com/chauvukiet.mm11' },
+                  { icon: <Twitter />, color: '#1DA1F2', link: 'https://twitter.com/KietChau11' },
+                  { icon: <Instagram />, color: '#E4405F', link: 'https://www.instagram.com/chauvukiet.mm11' },
                 ].map((social, index) => (
-                  <Grid item xs={6} key={index}>
+                  <Grid item xs={6} sm={4} key={index}>
                     <motion.div whileHover={{ scale: 1.1 }}>
                       <IconButton
                         sx={{
@@ -85,9 +88,11 @@ const Contact = () => {
                           height: 80,
                           bgcolor: `${social.color}15`,
                           '&:hover': { bgcolor: `${social.color}25` },
+                          color: social.color
                         }}
                         href={social.link}
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         {social.icon}
                       </IconButton>

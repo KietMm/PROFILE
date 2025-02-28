@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
   Container,
   Typography,
@@ -10,8 +10,6 @@ import {
   CardMedia,
   Chip,
   Box,
-  List,
-  ListItem,
   Button,
 } from "@mui/material";
 import { motion } from 'framer-motion';
