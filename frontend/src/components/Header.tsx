@@ -37,7 +37,13 @@ const Header = () => {
       borderColor: 'divider'
     }}>
       <Container maxWidth="lg">
-        <Toolbar disableGutters>
+        <Toolbar 
+          disableGutters 
+          sx={{ 
+            minHeight: { xs: '56px', sm: '64px' },
+            py: { xs: 1, sm: 0 }
+          }}
+        >
           <Typography 
             variant="h5" 
             component={Link} 
@@ -47,8 +53,7 @@ const Header = () => {
               fontWeight: 700, 
               color: 'primary.main',
               textDecoration: 'none',
-              display: 'flex',
-              alignItems: 'center'
+              fontSize: { xs: '1.2rem', sm: '1.5rem' }
             }}
           >
             <span style={{ color: theme.palette.primary.main }}>Port</span>
@@ -58,11 +63,12 @@ const Header = () => {
           {isMobile ? (
             <>
               <IconButton
-                size="large"
+                size="small"
                 edge="end"
                 color="inherit"
                 aria-label="menu"
                 onClick={handleMenu}
+                sx={{ p: 1 }}
               >
                 <MenuIcon />
               </IconButton>
@@ -70,19 +76,46 @@ const Header = () => {
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                PaperProps={{
+                  sx: {
+                    mt: 1,
+                    width: '200px',
+                    borderRadius: 2
+                  }
                 }}
               >
-                <MenuItem component={Link} to="/" onClick={handleClose}>Home</MenuItem>
-                <MenuItem component={Link} to="/about" onClick={handleClose}>About</MenuItem>
-                <MenuItem component={Link} to="/projects" onClick={handleClose}>Projects</MenuItem>
-                <MenuItem component={Link} to="/contact" onClick={handleClose}>Contact</MenuItem>
+                <MenuItem 
+                  component={Link} 
+                  to="/" 
+                  onClick={handleClose}
+                  sx={{ py: 1.5 }}
+                >
+                  Home
+                </MenuItem>
+                <MenuItem 
+                  component={Link} 
+                  to="/about" 
+                  onClick={handleClose}
+                  sx={{ py: 1.5 }}
+                >
+                  About
+                </MenuItem>
+                <MenuItem 
+                  component={Link} 
+                  to="/projects" 
+                  onClick={handleClose}
+                  sx={{ py: 1.5 }}
+                >
+                  Projects
+                </MenuItem>
+                <MenuItem 
+                  component={Link} 
+                  to="/contact" 
+                  onClick={handleClose}
+                  sx={{ py: 1.5 }}
+                >
+                  Contact
+                </MenuItem>
               </Menu>
             </>
           ) : (
