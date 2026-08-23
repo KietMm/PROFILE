@@ -1,72 +1,236 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-/* :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import "@fontsource-variable/archivo";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-mono/600.css";
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@custom-variant dark (&:is(.dark *));
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* ==========================================================================
+   CONTROL PLANE — a portfolio built as an instrument panel.
+   Two accents carry meaning, never decoration:
+     signal  (cyan)  = healthy, live, linked
+     attention (amber) = the number you are meant to read
+   ========================================================================== */
+
+@theme inline {
+    --font-sans: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;
+    --font-heading: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    /* control-plane specific */
+    --color-signal: var(--signal);
+    --color-attention: var(--attention);
+    --color-rail: var(--rail);
+    --color-hairline: var(--hairline);
+    --color-elevated: var(--elevated);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+
+    --radius-sm: calc(var(--radius) * 0.5);
+    --radius-md: calc(var(--radius) * 0.75);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.5);
+    --radius-2xl: calc(var(--radius) * 2);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+:root,
+.dark {
+    /* cold graphite — a blue-cast near-black, never pure #000 */
+    --background: oklch(0.155 0.012 254);
+    --foreground: oklch(0.955 0.005 254);
+
+    --card: oklch(0.196 0.014 254);
+    --card-foreground: oklch(0.955 0.005 254);
+    --popover: oklch(0.215 0.015 254);
+    --popover-foreground: oklch(0.955 0.005 254);
+
+    --elevated: oklch(0.238 0.016 254);
+    --rail: oklch(0.178 0.013 254);
+
+    /* cyan is the primary because on a control plane, cyan means "up" */
+    --primary: oklch(0.805 0.132 202);
+    --primary-foreground: oklch(0.17 0.02 220);
+
+    --secondary: oklch(0.252 0.016 254);
+    --secondary-foreground: oklch(0.93 0.006 254);
+
+    --muted: oklch(0.238 0.015 254);
+    --muted-foreground: oklch(0.685 0.016 254);
+
+    --accent: oklch(0.268 0.02 254);
+    --accent-foreground: oklch(0.955 0.005 254);
+
+    --destructive: oklch(0.652 0.19 22);
+
+    --border: oklch(0.305 0.018 254);
+    --hairline: oklch(0.262 0.015 254);
+    --input: oklch(0.288 0.017 254);
+    --ring: oklch(0.805 0.132 202);
+
+    --signal: oklch(0.805 0.132 202);
+    --attention: oklch(0.808 0.142 78);
+
+    --chart-1: oklch(0.805 0.132 202);
+    --chart-2: oklch(0.808 0.142 78);
+    --chart-3: oklch(0.62 0.09 254);
+    --chart-4: oklch(0.72 0.1 168);
+    --chart-5: oklch(0.5 0.03 254);
+
+    --sidebar: oklch(0.178 0.013 254);
+    --sidebar-foreground: oklch(0.955 0.005 254);
+    --sidebar-primary: oklch(0.805 0.132 202);
+    --sidebar-primary-foreground: oklch(0.17 0.02 220);
+    --sidebar-accent: oklch(0.252 0.016 254);
+    --sidebar-accent-foreground: oklch(0.955 0.005 254);
+    --sidebar-border: oklch(0.305 0.018 254);
+    --sidebar-ring: oklch(0.805 0.132 202);
+
+    /* instrument panels are precise, not pillowy */
+    --radius: 0.25rem;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: #f0f0f0;
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    html {
+        @apply font-sans;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+        /* ambient: a faint engineering grid, plus a cool wash from top-left */
+        background-image:
+            linear-gradient(to right, color-mix(in oklab, var(--border) 22%, transparent) 1px, transparent 1px),
+            linear-gradient(to bottom, color-mix(in oklab, var(--border) 22%, transparent) 1px, transparent 1px),
+            radial-gradient(120rem 60rem at 8% -10%, color-mix(in oklab, var(--signal) 7%, transparent), transparent 60%);
+        background-size: 56px 56px, 56px 56px, 100% 100%;
+        background-attachment: fixed;
+    }
+
+    :focus-visible {
+        @apply outline-2 outline-offset-2 outline-ring;
+    }
+
+    ::selection {
+        background: color-mix(in oklab, var(--signal) 30%, transparent);
+        color: var(--foreground);
+    }
+
+    /* the scrollbar is part of the instrument */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    ::-webkit-scrollbar-track {
+        background: var(--rail);
+    }
+    ::-webkit-scrollbar-thumb {
+        background: var(--elevated);
+        border: 2px solid var(--rail);
+        border-radius: 99px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: color-mix(in oklab, var(--signal) 40%, var(--elevated));
+    }
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Roboto', sans-serif;
+@layer components {
+    /* a monospace instrument label — eyebrows, field names, column heads */
+    .label-mono {
+        @apply font-mono text-[0.6875rem] leading-none tracking-[0.18em] uppercase text-muted-foreground;
+    }
+
+    /* the header strip that sits on top of every panel */
+    .panel-strip {
+        @apply flex items-center gap-2.5 border-b border-hairline bg-rail/60 px-3 py-2;
+    }
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+    .text-pretty {
+        text-wrap: pretty;
+    }
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
+/* --- motion: one heartbeat, one sweep, one caret. Nothing else. --- */
+
+@keyframes cp-heartbeat {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(0.82); }
+}
+
+@keyframes cp-halo {
+    0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--signal) 55%, transparent); }
+    70% { box-shadow: 0 0 0 6px color-mix(in oklab, var(--signal) 0%, transparent); }
+    100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--signal) 0%, transparent); }
+}
+
+@keyframes cp-sweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(400%); }
+}
+
+@keyframes cp-caret {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+.animate-heartbeat { animation: cp-heartbeat 2.4s ease-in-out infinite; }
+.animate-halo { animation: cp-halo 2.4s ease-out infinite; }
+.animate-sweep { animation: cp-sweep 2.8s linear infinite; }
+.animate-caret { animation: cp-caret 1.05s step-end infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

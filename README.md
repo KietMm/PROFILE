@@ -1,106 +1,88 @@
-# Personal Portfolio Website
+# Chau Vu Kiet — Portfolio
 
-A modern, responsive portfolio website built with React, TypeScript, and Material-UI.
+A personal portfolio for a full-stack / platform engineer, designed as a control plane: the
+systems from the CV are laid out as a fleet board, each with the quantity that describes it.
 
-🌐 [Live Demo](https://profile-rouge-mu.vercel.app/)
+🌐 [Live site](https://profile-rouge-mu.vercel.app/)
 
-![Portfolio Preview](public/preview.png)
+## Content
 
-## 🚀 Features
+All copy comes from the CV in `cv/main_example.tex` and lives in exactly one place:
+[`frontend/src/data/cv.ts`](frontend/src/data/cv.ts). Every user-facing string is a
+`{ en, vi }` pair. To update the site after a CV change, edit that file — the pages read
+from it. The backend seed at `backend/src/seeds/data.ts` mirrors the same content.
 
-- 📱 Fully Responsive Design
-- 🎨 Modern UI with Material Design
-- ⚡ Fast Performance with React & Vite
-- 🔄 Smooth Animations with Framer Motion
-- 📊 Project Showcase
-- 📝 Contact Form
-- 🌐 Social Media Integration
+Numbers shown on the board (`6 remotes`, `4 agent engines`, `11 services`) are facts stated
+in the CV, not live telemetry. The only genuinely live reading is the Ho Chi Minh City clock
+in the status rail.
 
-## 🛠️ Built With
+## Built with
 
-- [React](https://reactjs.org/) - Frontend Framework
-- [TypeScript](https://www.typescriptlang.org/) - Programming Language
-- [Material-UI](https://mui.com/) - UI Component Library
-- [Framer Motion](https://www.framer.com/motion/) - Animation Library
-- [Vite](https://vitejs.dev/) - Build Tool
-- [Vercel](https://vercel.com/) - Deployment Platform
+- [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/) — build tool
+- [Tailwind CSS v4](https://tailwindcss.com/) — styling, via `@tailwindcss/vite`
+- [shadcn/ui](https://ui.shadcn.com/) — component source, on Radix primitives
+- [Motion](https://motion.dev/) — page-load and reveal animation
+- [lucide-react](https://lucide.dev/) — icons
+- Archivo + IBM Plex Mono, self-hosted through [Fontsource](https://fontsource.org/)
+- Express + Mongoose (`backend/`), not yet wired to the frontend
 
-## 🏃‍♂️ Getting Started
+## Getting started
 
-### Prerequisites
+Requires Node.js 20 or newer.
 
-- Node.js (v14 or higher)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/portfolio.git
-```
-
-2. Install dependencies
-```bash
-cd portfolio
+cd frontend
 npm install
+npm run dev      # http://localhost:5173
+npm run build    # typecheck + production build
+npm run lint
 ```
 
-3. Start the development server
+The backend is a separate workspace:
+
 ```bash
-npm run dev
+cd backend
+npm install
+npm run dev      # needs MONGODB_URI, defaults to mongodb://localhost:27017/portfolio
+npm run seed
 ```
 
-4. Build for production
-```bash
-npm run build
+## Routes
+
+| Path          | Contents                                                        |
+| ------------- | --------------------------------------------------------------- |
+| `/`           | Hero, fleet board, summary, current role, core competencies      |
+| `/systems`    | The five platforms, expandable, with the CV's own wording        |
+| `/experience` | Three roles, education, languages, achievements                  |
+| `/contact`    | Email, phone, LinkedIn, location                                 |
+
+`/projects` and `/about` redirect to `/systems` and `/experience`, so older links still work.
+
+## Project structure
+
+```
+frontend/src/
+├── components/
+│   ├── site/       # Panel, FleetBoard, SiteHeader, SiteFooter, StatusDot
+│   └── ui/         # shadcn components
+├── data/cv.ts      # single source of truth, bilingual
+├── i18n/           # LanguageProvider, useLang, interface copy
+├── hooks/
+├── layouts/
+└── pages/
 ```
 
-## 📂 Project Structure
+## Language
 
-```
-frontend/
-├── public/          # Static files
-├── src/
-│   ├── components/  # Reusable components
-│   ├── layouts/     # Layout components
-│   ├── pages/       # Page components
-│   ├── assets/      # Images and other assets
-│   └── App.tsx      # Main application component
-├── package.json
-└── README.md
-```
+The site ships in English and Vietnamese. The initial language follows the browser, the
+toggle in the header overrides it, and the choice persists in `localStorage`.
 
-## 🌟 Key Sections
-
-- **Home**: Introduction and overview
-- **About**: Personal information and skills
-- **Projects**: Portfolio of work
-- **Contact**: Contact information and form
-
-## 📱 Responsive Design
-
-The website is fully responsive and optimized for:
-- Desktop (1200px and above)
-- Tablet (768px to 1199px)
-- Mobile (below 768px)
-
-## 🚀 Deployment
-
-This project is deployed on Vercel. The live version can be accessed at:
-[https://profile-rouge-mu.vercel.app/](https://profile-rouge-mu.vercel.app/)
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📧 Contact
+## Contact
 
 Chau Vu Kiet
+
 - Email: chauvukietcma123@gmail.com
-- LinkedIn: [chauvukietmm11](https://www.linkedin.com/in/chauvukietmm11)
+- Phone: +84 837 541 890
+- LinkedIn: [chau-vu-kiet](https://www.linkedin.com/in/chau-vu-kiet-59810735a)
 - GitHub: [KietMm](https://github.com/KietMm)
-
----
-
-⭐ Star this repo if you find it helpful!
-

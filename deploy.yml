@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
           cache-dependency-path: './frontend/package-lock.json'
 
@@ -31,6 +31,11 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      # BrowserRouter deep links (/systems, /experience) 404 on GitHub Pages
+      # without a fallback copy of the entry document.
+      - name: Add SPA fallback
+        run: cp dist/index.html dist/404.html
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4

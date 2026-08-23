@@ -1,32 +1,32 @@
-// import { useState } from 'react'
-// import './App.css'
-// import profilePic from './assets/react.svg'
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import MainLayout from "./layouts/MainLayout";
-import Home from "./pages/Home";
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Projects from "./pages/Projects";
-import NotFound from "./pages/NotFound";
-// import Projects from './pages/Projects';
-// import About from "./pages/About";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { LanguageProvider } from "@/i18n";
+import MainLayout from "@/layouts/MainLayout";
+import Home from "@/pages/Home";
+import Systems from "@/pages/Systems";
+import Experience from "@/pages/Experience";
+import Contact from "@/pages/Contact";
+import NotFound from "@/pages/NotFound";
 
-function App() {
-  // const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <Router>
-      <MainLayout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </MainLayout>
-    </Router>
-  )
+    <LanguageProvider>
+      <TooltipProvider delayDuration={200}>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/systems" element={<Systems />} />
+              <Route path="/experience" element={<Experience />} />
+              <Route path="/contact" element={<Contact />} />
+              {/* the old routes still resolve, so shared links keep working */}
+              <Route path="/projects" element={<Navigate to="/systems" replace />} />
+              <Route path="/about" element={<Navigate to="/experience" replace />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </LanguageProvider>
+  );
 }
-
-export default App

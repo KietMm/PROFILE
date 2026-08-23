@@ -5,13 +5,15 @@ export interface ISkill extends Document {
   description: string;
   icon: string;
   category: string;
+  technologies: string[];
 }
 
 const SkillSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   icon: { type: String, required: true },
-  category: { type: String, required: true }
+  category: { type: String, required: true },
+  technologies: [String]
 });
 
 export default mongoose.model<ISkill>('Skill', SkillSchema); 
