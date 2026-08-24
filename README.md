@@ -48,6 +48,28 @@ npm run dev      # needs MONGODB_URI, defaults to mongodb://localhost:27017/port
 npm run seed
 ```
 
+## Share previews
+
+Share crawlers (LinkedIn, Facebook, Slack) do not run JavaScript, so per-page
+`og:` tags cannot come from React. Instead `npm run build` runs
+`scripts/prerender-meta.ts`, which writes one static document per route into
+`dist/` with its own title, description, and card. Vercel checks the filesystem
+before applying the SPA rewrite, so `/systems` serves `dist/systems/index.html`.
+
+The 1200×630 cards live in `frontend/public/og`. Regenerate them after changing
+the CV or the card design:
+
+```bash
+npm run og      # needs a local Chrome; set CHROME_PATH to override
+```
+
+That step is deliberately out of `npm run build` — CI has no browser, and the
+cards only change when the content does. Commit the PNGs.
+
+Route metadata (titles, descriptions, card rows) lives in `scripts/seo.ts`.
+When the domain changes, set `SITE_URL` or edit the default in that file, then
+rebuild — `og:image` and `og:url` must be absolute.
+
 ## Routes
 
 | Path          | Contents                                                        |

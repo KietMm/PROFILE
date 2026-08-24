@@ -6,17 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#161a20" />
+
+    <!--seo-->
+    <!--
+      Defaults for the home route. `scripts/prerender-meta.ts` replaces this
+      whole block per route after `vite build`, because share crawlers do not
+      run JavaScript and only ever see the HTML that comes off the wire.
+      Edit scripts/seo.ts, not this block.
+    -->
     <title>Chau Vu Kiet — Full-stack / Platform Engineer</title>
     <meta
       name="description"
-      content="Full-stack platform engineer in Ho Chi Minh City. Module Federation microfrontend platforms, distributed agent runtimes in Rust, and OAuth2/OIDC identity infrastructure."
+      content="Full-stack platform engineer in Ho Chi Minh City. I build Module Federation microfrontend platforms, a distributed agent runtime in Rust, and the OAuth2/OIDC identity provider behind both."
     />
+    <meta name="author" content="Chau Vu Kiet" />
+    <link rel="canonical" href="https://profile-rouge-mu.vercel.app" />
+    <meta property="og:site_name" content="Chau Vu Kiet — Portfolio" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:url" content="https://profile-rouge-mu.vercel.app" />
     <meta property="og:title" content="Chau Vu Kiet — Full-stack / Platform Engineer" />
     <meta
       property="og:description"
-      content="Module Federation microfrontend platforms, distributed agent runtimes in Rust, and OAuth2/OIDC identity infrastructure."
+      content="Full-stack platform engineer in Ho Chi Minh City. I build Module Federation microfrontend platforms, a distributed agent runtime in Rust, and the OAuth2/OIDC identity provider behind both."
     />
-    <meta property="og:type" content="profile" />
+    <meta property="og:image" content="https://profile-rouge-mu.vercel.app/og/home.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Chau Vu Kiet, Full-stack / Platform Engineer" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="vi_VN" />
+    <meta property="profile:first_name" content="Chau" />
+    <meta property="profile:last_name" content="Vu Kiet" />
+    <meta property="profile:username" content="chau-vu-kiet" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Chau Vu Kiet — Full-stack / Platform Engineer" />
+    <meta
+      name="twitter:description"
+      content="Full-stack platform engineer in Ho Chi Minh City. I build Module Federation microfrontend platforms, a distributed agent runtime in Rust, and the OAuth2/OIDC identity provider behind both."
+    />
+    <meta name="twitter:image" content="https://profile-rouge-mu.vercel.app/og/home.png" />
+    <!--/seo-->
   </head>
   <body>
     <div id="root"></div>
