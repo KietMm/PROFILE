@@ -7,42 +7,13 @@
  * content does.
  */
 
-import { execFileSync } from "node:child_process";
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { resolve } from "node:path";
 import { profile } from "../src/data/cv.ts";
+import { escapeHtml, fonts, projectRoot, shoot, surfaceCss } from "./render.ts";
 import { routes, type RouteSeo } from "./seo.ts";
-
-const here = dirname(fileURLToPath(import.meta.url));
-const root = resolve(here, "..");
-const outDir = resolve(root, "public/og");
-const tmpDir = resolve(root, "node_modules/.cache/og");
-
-const CHROME =
-  process.env.CHROME_PATH ?? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
 const WIDTH = 1200;
 const HEIGHT = 630;
-
-/** Inlined so the render never depends on network or file:// font access. */
-function fontFace(family: string, file: string, weight: string) {
-  const data = readFileSync(resolve(root, "node_modules", file)).toString("base64");
-  return `@font-face{font-family:"${family}";font-weight:${weight};font-display:block;src:url(data:font/woff2;base64,${data}) format("woff2")}`;
-}
-
-const fonts = [
-  fontFace(
-    "Archivo Card",
-    "@fontsource-variable/archivo/files/archivo-latin-wght-normal.woff2",
-    "100 900",
-  ),
-  fontFace("Plex Card", "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2", "400"),
-  fontFace("Plex Card", "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2", "600"),
-].join("");
-
-const escape = (value: string) =>
-  value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 function cardHtml(route: RouteSeo) {
   // The home card leads with four numbers, so it reads as a row of gauges.
@@ -55,20 +26,20 @@ function cardHtml(route: RouteSeo) {
   const keyWidth = Math.min(300, Math.round(longestKey * 15.6) + 24);
 
   const heading = route.card.headingAccent
-    ? `${escape(route.card.heading)} <span class="accent">${escape(route.card.headingAccent)}</span>`
-    : escape(route.card.heading);
+    ? `${escapeHtml(route.card.heading)} <span class="accent">${escapeHtml(route.card.headingAccent)}</span>`
+    : escapeHtml(route.card.heading);
 
   const rows = asStats
     ? `<div class="stats">${route.card.rows
         .map(
           (row) =>
-            `<div class="stat"><span class="stat-value">${escape(row.key)}</span><span class="stat-label">${escape(row.value)}</span></div>`,
+            `<div class="stat"><span class="stat-value">${escapeHtml(row.key)}</span><span class="stat-label">${escapeHtml(row.value)}</span></div>`,
         )
         .join("")}</div>`
     : `<ul class="list">${route.card.rows
         .map(
           (row) =>
-            `<li><span class="list-key">${escape(row.key)}</span><span class="list-value">${escape(row.value)}</span></li>`,
+            `<li><span class="list-key">${escapeHtml(row.key)}</span><span class="list-value">${escapeHtml(row.value)}</span></li>`,
         )
         .join("")}</ul>`;
 
@@ -79,13 +50,7 @@ ${fonts}
 html,body{width:${WIDTH}px;height:${HEIGHT}px}
 body{
   font-family:"Archivo Card",system-ui,sans-serif;
-  background-color:oklch(0.155 0.012 254);
-  color:oklch(0.955 0.005 254);
-  background-image:
-    linear-gradient(to right,oklch(0.305 0.018 254/0.22) 1px,transparent 1px),
-    linear-gradient(to bottom,oklch(0.305 0.018 254/0.22) 1px,transparent 1px),
-    radial-gradient(1100px 560px at 6% -18%,oklch(0.805 0.132 202/0.10),transparent 62%);
-  background-size:56px 56px,56px 56px,100% 100%;
+  ${surfaceCss}
   display:flex;flex-direction:column;
   padding:56px 64px;
   position:relative;
@@ -109,7 +74,7 @@ body{
   text-transform:uppercase;color:oklch(0.805 0.132 202/0.85);
 }
 h1{
-  margin-top:18px;font-size:${(route.card.heading + (route.card.headingAccent ?? '')).length > 14 ? 84 : 104}px;
+  margin-top:18px;font-size:${(route.card.heading + (route.card.headingAccent ?? "")).length > 14 ? 84 : 104}px;
   font-weight:800;line-height:.92;letter-spacing:-.03em;text-transform:uppercase;
 }
 .stats{display:flex;gap:56px;margin-top:40px}
@@ -137,11 +102,11 @@ h1{
 </style></head><body>
   <div class="top">
     <span class="mark">CK</span>
-    <span class="handle">${escape(profile.handle)}</span>
-    <span class="where"><span class="dot"></span>${escape(profile.location.en)} · UTC+7</span>
+    <span class="handle">${escapeHtml(profile.handle)}</span>
+    <span class="where"><span class="dot"></span>${escapeHtml(profile.location.en)} · UTC+7</span>
   </div>
   <div class="body">
-    <div class="eyebrow">${escape(route.card.eyebrow)}</div>
+    <div class="eyebrow">${escapeHtml(route.card.eyebrow)}</div>
     <h1>${heading}</h1>
     ${rows}
   </div>
@@ -149,30 +114,8 @@ h1{
 </body></html>`;
 }
 
-mkdirSync(outDir, { recursive: true });
-mkdirSync(tmpDir, { recursive: true });
-
 for (const route of routes) {
-  const htmlPath = resolve(tmpDir, `${route.image}.html`);
-  const pngPath = resolve(outDir, `${route.image}.png`);
-  writeFileSync(htmlPath, cardHtml(route));
-
-  execFileSync(
-    CHROME,
-    [
-      "--headless=new",
-      "--disable-gpu",
-      "--hide-scrollbars",
-      "--force-device-scale-factor=1",
-      `--window-size=${WIDTH},${HEIGHT}`,
-      "--virtual-time-budget=4000",
-      `--screenshot=${pngPath}`,
-      `file://${htmlPath}`,
-    ],
-    { stdio: "ignore" },
-  );
-
+  const out = resolve(projectRoot, `public/og/${route.image}.png`);
+  shoot({ html: cardHtml(route), out, width: WIDTH, height: HEIGHT });
   console.log(`og  ${route.path.padEnd(12)} -> public/og/${route.image}.png`);
 }
-
-rmSync(tmpDir, { recursive: true, force: true });

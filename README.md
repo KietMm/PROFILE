@@ -66,6 +66,19 @@ npm run og      # needs a local Chrome; set CHROME_PATH to override
 That step is deliberately out of `npm run build` — CI has no browser, and the
 cards only change when the content does. Commit the PNGs.
 
+## GitHub profile
+
+`github.com/KietMm` renders the README of the repo whose name matches the
+username. That README and its banner are generated from the same `cv.ts`:
+
+```bash
+npm run profile -- ../../KietMm    # path to a KietMm/KietMm checkout
+```
+
+It writes `README.md` and `banner.png` into that directory; commit and push
+them there. Like `npm run og`, it needs a local Chrome and stays out of
+`npm run build`.
+
 Route metadata (titles, descriptions, card rows) lives in `scripts/seo.ts`.
 When the domain changes, set `SITE_URL` or edit the default in that file, then
 rebuild — `og:image` and `og:url` must be absolute.
